@@ -70,6 +70,16 @@ def login():
         return render_template("login.html")
 
 
+@app.route("/logout", methods=["GET"])
+def logout():
+    """Log user out"""
+
+    # Forget any user_id
+    session.clear()
+
+    return redirect("/login")
+
+
 def errorhandler(e):
     """Handle error"""
     if not isinstance(e, HTTPException):
