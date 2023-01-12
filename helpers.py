@@ -1,9 +1,12 @@
 import os
 import urllib.parse
+import boto3
 
 from flask import redirect, render_template, session
 from functools import wraps
 
+# Get the service resource.
+dynamodb = boto3.resource('dynamodb')
 
 def apology(message, code=400):
     """Render message as an apology to user."""
@@ -30,3 +33,8 @@ def login_required(f):
             return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
+
+
+def extract_data(data):
+    pass
+
