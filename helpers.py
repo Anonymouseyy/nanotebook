@@ -1,12 +1,16 @@
 import os
 import urllib.parse
-import boto3
+from deta import Deta
 
 from flask import redirect, render_template, session
 from functools import wraps
 
-# Get the service resource.
-dynamodb = boto3.resource('dynamodb')
+# Get the API KEY.
+with open(r'API_KEY.txt') as f:
+    API_KEY = f.readlines()[0]
+
+deta = Deta(API_KEY)
+db = deta.Base('notes')
 
 def apology(message, code=400):
     """Render message as an apology to user."""
@@ -35,6 +39,6 @@ def login_required(f):
     return decorated_function
 
 
-def extract_data(data):
-    pass
+def get_all_notes():
+    return db.fetch().items
 

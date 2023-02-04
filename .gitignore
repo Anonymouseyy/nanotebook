@@ -1,6 +1,9 @@
 # testfile
 test.py
 
+# Secret
+API_KEY.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

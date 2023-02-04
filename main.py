@@ -5,7 +5,7 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import apology, login_required
+from helpers import apology, login_required, get_all_notes
 
 # Configure application
 app = Flask(__name__)
@@ -34,7 +34,7 @@ Session(app)
 def index():
     """Home Page"""
 
-    return render_template("index.html")
+    return render_template("index.html", notes=get_all_notes())
 
 
 @app.route("/login", methods=["GET", "POST"])

@@ -1,3 +1,9 @@
+body
+{
+    background-color: #2f3136;
+    color: white;
+}
+
 nav .navbar-brand
 {
     /* size for brand */
@@ -48,8 +54,49 @@ main img
 
 h1 {
     text-align: center;
-    color: black;
+    color: white;
     margin: 25px 50px 50px 50px;
-    font-size: 50px;
+    font-size: 75px;
     font-weight: bold;
+}
+
+.main-content {
+    padding-left: 200px;
+    padding-right: 200px;
+}
+
+.notes-grid {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    column-gap: 20px;
+    row-gap: 20px;
+    justify-content: space-evenly;
+    margin: 50px 0px 50px 0px;
+}
+
+.notes-grid>li {
+    display: block;
+    background-color: #40444b;
+    border-radius: 25px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.notes-grid>li:hover {
+    background-color: #37393D;
+}
+
+.notes-grid>li>h1 {
+    text-align: left;
+    color: white;
+    font-size: 50px;
+    margin: 20px 20px 5px 20px;
+    overflow: hidden;
+}
+
+.notes-grid>li>p {
+    text-align: left;
+    color: white;
+    font-size: 30;
+    margin: 10px 20px 20px 20px;
 }

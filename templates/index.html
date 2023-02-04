@@ -5,5 +5,14 @@
 {% endblock %}
 
 {% block main %}
-    <h1>lorem ipsum</h1>
+    <h1>Home</h1>
+    <hr size=30 color="white" width=90%>
+    <ol class="js-grid notes-grid group dribbbles  container-fluid">
+        {% for note in notes %}
+            <li>
+                <h1>{{ note.key }}</h1>
+                <p>{{ note.description }}</p>
+            </li>
+        {% endfor %}
+    </ol>
 {% endblock %}
