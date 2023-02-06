@@ -37,6 +37,14 @@ def index():
     return render_template("index.html", notes=get_all_notes())
 
 
+@app.route("/create", methods=["GET", "POST"])
+@login_required
+def create():
+    """Create new items"""
+
+    return render_template("create.html")
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
