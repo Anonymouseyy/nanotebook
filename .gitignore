@@ -3,6 +3,7 @@ test.py
 
 # Secret
 API_KEY.txt
+password.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
