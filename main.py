@@ -4,11 +4,13 @@ from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
+from dotenv import load_dotenv
 
 from helpers import apology, login_required, get_all_notes
 
 # Configure application
 app = Flask(__name__)
+load_dotenv()
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -59,12 +61,8 @@ def login():
         if not request.form.get("password"):
             return apology("must provide password", 400)
 
-        # Get hashed password
-        with open(r'static\password.txt') as f:
-            lines = f.readlines()
-
         # Ensure password is correct
-        if not check_password_hash(lines[0], request.form.get("password")):
+        if not check_password_hash(os.environ.get('password'), request.form.get("password")):
             return apology("Password is incorrect", 400)
 
         # Remember which user has logged in

@@ -4,12 +4,11 @@ from deta import Deta
 
 from flask import redirect, render_template, session
 from functools import wraps
+from dotenv import load_dotenv
 
-# Get the API KEY.
-with open(r'API_KEY.txt') as f:
-    API_KEY = f.readlines()[0]
+load_dotenv()
 
-deta = Deta(API_KEY)
+deta = Deta(os.environ.get('API_KEY'))
 db = deta.Base('notes')
 
 def apology(message, code=400):
