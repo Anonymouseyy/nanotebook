@@ -47,6 +47,11 @@ def create():
     return render_template("create.html")
 
 
+@app.route("/edit", methods=["GET", "POST"])
+@login_required
+def edit():
+    return render_template("editor.html")
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
