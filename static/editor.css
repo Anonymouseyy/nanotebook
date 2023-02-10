@@ -7,13 +7,7 @@ body {
   background-color: #2f3136;
 }
 .container {
-  background-color: #ffffff;
-  width: 90vmin;
-  padding: 50px 30px;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 50%;
+  padding: 20px 0px;
   border-radius: 10px;
   box-shadow: 0 25px 50px rgba(7, 20, 35, 0.2);
 }
@@ -23,7 +17,7 @@ body {
   align-items: center;
   gap: 15px;
 }
-button {
+.textbutton {
   height: 28px;
   width: 28px;
   display: grid;
@@ -71,6 +65,8 @@ input[type="color"]::-moz-color-swatch {
   border: 1px solid #dddddd;
   padding: 20px;
   height: 50vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .active {
   background-color: #e0e9ff;
