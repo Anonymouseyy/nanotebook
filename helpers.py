@@ -10,6 +10,8 @@ load_dotenv()
 
 deta = Deta(os.environ.get('API_KEY'))
 db = deta.Base('notes')
+drive = deta.Drive("mydrive")
+
 
 def apology(message, code=400):
     """Render message as an apology to user."""
@@ -40,4 +42,12 @@ def login_required(f):
 
 def get_all_notes():
     return db.fetch().items
+
+
+def create_note_file(filename, content):
+    try:
+        result = drive.put(f"./notes/{filename}.html", content)
+        return result
+    except Exception as e:
+        apology(e)
 

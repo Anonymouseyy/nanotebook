@@ -43,6 +43,9 @@ def index():
 @login_required
 def create():
     """Create new items"""
+    if request.method == "POST":
+        if not request.form.get("name") and not request.form.get("desc"):
+            return apology("must have name and description")
 
     return render_template("create.html")
 
@@ -51,6 +54,7 @@ def create():
 @login_required
 def edit():
     return render_template("editor.html")
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
