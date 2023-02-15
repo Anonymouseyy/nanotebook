@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 deta = Deta(os.environ.get('API_KEY'))
-db = deta.Base('notes')
+notes = deta.Base('notes')
 drive = deta.Drive("mydrive")
 
 
@@ -41,13 +41,30 @@ def login_required(f):
 
 
 def get_all_notes():
-    return db.fetch().items
+    return notes.fetch().items
 
 
-def create_note_file(filename, content):
+def create_file(filename, path, content):
     try:
-        result = drive.put(f"./notes/{filename}.html", content)
+        result = drive.put(f"{path}/{filename}", content)
         return result
     except Exception as e:
         apology(e)
+
+
+def create_note(name, description):
+    file_name = name
+    invalid_chars = ["#", "<", "$", "+", "%", ">", "!", "`", "&", "*", "'",
+                     '"', "|", "{", "}", "?", "=", "/", ":", "\"", " ", "@"]
+
+    for char in invalid_chars:
+        file_name = file_name.replace(char, "_")
+
+    try:
+        create_file(f"{name}.txt", r"./notes", "Note")
+        notes.put(data={"description": description, "file": f"./notes/{name}.txt"}, key=name)
+        return 1
+    except Exception as e:
+        apology(e)
+
 

@@ -6,7 +6,7 @@ from werkzeug.exceptions import default_exceptions, HTTPException, InternalServe
 from werkzeug.security import check_password_hash, generate_password_hash
 from dotenv import load_dotenv
 
-from helpers import apology, login_required, get_all_notes
+from helpers import apology, login_required, get_all_notes, create_file, create_note
 
 # Configure application
 app = Flask(__name__)
@@ -46,6 +46,9 @@ def create():
     if request.method == "POST":
         if not request.form.get("name") and not request.form.get("desc"):
             return apology("must have name and description")
+
+        if create_note(request.form.get("name"), request.form.get("desc")):
+            return redirect("/")
 
     return render_template("create.html")
 
