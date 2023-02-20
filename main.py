@@ -48,6 +48,7 @@ def create():
             return apology("must have name and description")
 
         if create_note(request.form.get("name"), request.form.get("desc")):
+            flash(f"{request.form.get('name')} successfully created!")
             return redirect("/")
 
     return render_template("create.html")
@@ -56,7 +57,10 @@ def create():
 @app.route("/edit", methods=["GET", "POST"])
 @login_required
 def edit():
-    return render_template("editor.html")
+    if request.method == "GET":
+        note = request.args.get('note')
+        flash(note)
+        return redirect("/")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -80,6 +84,8 @@ def login():
         # Remember which user has logged in
         session["user_id"] = 1
 
+        flash("Successfully Logged In")
+
         # Redirect user to home page
         return redirect("/")
 
@@ -94,6 +100,8 @@ def logout():
 
     # Forget any user_id
     session.clear()
+
+    flash("Successfully logged out")
 
     return redirect("/login")
 

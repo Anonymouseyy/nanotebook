@@ -7,11 +7,16 @@
 {% block main %}
     <h1>Home</h1>
     <hr class="topline">
-    <ol class="js-grid notes-grid group dribbbles  container-fluid">
+    <ol class="js-grid notes-grid group dribbles  container-fluid">
         {% for note in notes %}
-            <li>
-                <h1>{{ note.key }}</h1>
-                <p>{{ note.description }}</p>
+        <li>
+            <a href="/edit?note={{ note.key }}" methods="get" class="nav-link">
+
+                        <h1>{{ note.key }}</h1>
+                        <p>{{ note.description }}</p>
+
+
+            </a>
             </li>
         {% endfor %}
     </ol>

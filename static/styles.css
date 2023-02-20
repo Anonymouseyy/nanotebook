@@ -78,7 +78,7 @@ h1 {
     display: block;
     background-color: #40444b;
     border-radius: 25px;
-    height: 200px;
+    height: 220px;
     overflow: hidden;
 }
 
@@ -86,15 +86,15 @@ h1 {
     background-color: #37393D;
 }
 
-.notes-grid>li>h1 {
+.notes-grid>li>a>h1 {
     text-align: left;
     color: white;
     font-size: 50px;
-    margin: 20px 20px 5px 20px;
+    margin: 10px 20px 5px 20px;
     overflow: hidden;
 }
 
-.notes-grid>li>p {
+.notes-grid>li>a>p {
     text-align: left;
     color: white;
     font-size: 30;
