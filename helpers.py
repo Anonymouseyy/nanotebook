@@ -40,19 +40,33 @@ def login_required(f):
     return decorated_function
 
 
-def get_all_notes():
-    return notes.fetch().items
-
-
 def create_file(filename, path, content):
+    '''
+    Creates a file with a name, path, and content
+    :param filename: str
+        The name of the file to be created
+    :param path: str
+        The path of the file, folders to be seperate by /
+    :param content: anything
+        The content of the file
+    :return:
+        The file name if successful, otherwise redirects to apology
+    '''
     try:
-        result = drive.put(f"{path}/{filename}", content)
-        return result
+        drive.put(f"{path}/{filename}", content)
+        return 1
     except Exception as e:
-        apology(e)
+        return 0
 
 
-def create_note(name, description):
+def filename(name):
+    '''
+    Returns a valid file name by escaping all invalid characters in a file name
+    :param name: str
+        Name of the file
+    :return: str
+        Name of the valid file name
+    '''
     file_name = name
     invalid_chars = ["#", "<", "$", "+", "%", ">", "!", "`", "&", "*", "'",
                      '"', "|", "{", "}", "?", "=", "/", ":", "\"", " ", "@"]
@@ -60,11 +74,47 @@ def create_note(name, description):
     for char in invalid_chars:
         file_name = file_name.replace(char, "_")
 
+    return file_name
+
+
+def create_note(name, description):
+    '''
+    Creates a note with the given name and description
+    :param name: str
+        The name of the note
+    :param description: str
+        The description of the note
+    :return: int
+        Returns 1 if successful, otherwise returns apology
+    '''
+    file_name = filename(name)
+
     try:
-        create_file(f"{name}.txt", r"./notes", "Note")
-        notes.put(data={"description": description, "file": f"./notes/{name}.txt"}, key=name)
+        if not create_file(f"{file_name}.txt", r"./notes", "Note"):
+            return 0
+        notes.put(data={"description": description, "file": f"./notes/{file_name}.txt"}, key=name)
         return 1
     except Exception as e:
-        apology(e)
+        return 0
 
+
+def get_file(name, return_type="str"):
+    '''
+    Get a file from the deta database
+    :param name: str
+        The name of the file including its path
+    :param return_type:
+        The type of return it should return, either a string of the bytes, or the path to a file where the file was put
+    :return:
+        A string of bytes or a file path
+    '''
+    file = drive.get(name)
+    if return_type == "str":
+        return file.read()
+    else:
+        with open(f"tempfile.{os.path.splitext(file)[-1]}", "wb+") as f:
+            for chunk in file.iter_chunks(4096):
+                f.write(chunk)
+            file.close()
+        return f"tempfile.{os.path.splitext(file)[-1]}"
 

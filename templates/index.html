@@ -11,13 +11,10 @@
         {% for note in notes %}
         <li>
             <a href="/edit?note={{ note.key }}" methods="get" class="nav-link">
-
-                        <h1>{{ note.key }}</h1>
-                        <p>{{ note.description }}</p>
-
-
+                <h1>{{ note.key }}</h1>
+                <p>{{ note.description }}</p>
             </a>
-            </li>
+        </li>
         {% endfor %}
     </ol>
 {% endblock %}

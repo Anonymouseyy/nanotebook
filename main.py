@@ -5,12 +5,16 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 from dotenv import load_dotenv
+from deta import Deta
 
-from helpers import apology, login_required, get_all_notes, create_file, create_note
+from helpers import *
 
 # Configure application
 app = Flask(__name__)
 load_dotenv()
+deta = Deta(os.environ.get('API_KEY'))
+notes = deta.Base('notes')
+drive = deta.Drive("mydrive")
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -36,7 +40,7 @@ Session(app)
 def index():
     """Home Page"""
 
-    return render_template("index.html", notes=get_all_notes())
+    return render_template("index.html", notes=notes.fetch().items)
 
 
 @app.route("/create", methods=["GET", "POST"])
@@ -50,6 +54,8 @@ def create():
         if create_note(request.form.get("name"), request.form.get("desc")):
             flash(f"{request.form.get('name')} successfully created!")
             return redirect("/")
+        else:
+            return apology("an unexpected error occurred")
 
     return render_template("create.html")
 
@@ -58,9 +64,10 @@ def create():
 @login_required
 def edit():
     if request.method == "GET":
-        note = request.args.get('note')
-        flash(note)
-        return redirect("/")
+        note = request.args.get("note")
+        item = notes.get(note)
+        content = get_file(item["file"]).decode()
+        return render_template("editor.html", name=note, content=content)
 
 
 @app.route("/login", methods=["GET", "POST"])

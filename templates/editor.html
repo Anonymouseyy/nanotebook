@@ -1,12 +1,11 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Edit
-    <-- Insert name of note -->
+    Edit: {{ name }}
 {% endblock %}
 
 {% block main %}
-    <h1>Edit</h1>
+    <h1>Edit: {{ name }}</h1>
     <hr class="topline">
     <div class="container">
     <div class="options">
@@ -82,7 +81,7 @@
             <label for="backColor">Highlight Color</label>
         </div>
     </div>
-    <div id="text-input" contenteditable="true"></div>
+    <div id="text-input" contenteditable="true">{{ content }}</div>
     </div>
     <script src="/static/editor.js"></script>
 
