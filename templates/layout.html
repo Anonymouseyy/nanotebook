@@ -54,8 +54,11 @@
 
         {% if get_flashed_messages() %}
             <header>
-                <div class="alert alert-primary border text-center" role="alert">
-                    {{ get_flashed_messages() | join(" ") }}
+                <div class="alert alert-primary alert-dismissible fade show text-center" role="alert">
+                    <span>{{ get_flashed_messages() | join(" ") }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </header>
         {% endif %}

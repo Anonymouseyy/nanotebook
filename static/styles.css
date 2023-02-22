@@ -60,9 +60,17 @@ h1 {
     font-weight: bold;
 }
 
+h2 {
+    text-align: left;
+    color: white;
+    margin: 30px 10px 10px 10px;
+    font-size: 40px;
+}
+
 .main-content {
     padding-left: 200px;
     padding-right: 200px;
+    padding-bottom: 100px;
 }
 
 .notes-grid {
@@ -108,4 +116,16 @@ h1 {
     margin-right: auto;
     border-style: inset;
     border-width: 1px;
+}
+
+.column {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }

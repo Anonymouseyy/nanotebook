@@ -67,7 +67,7 @@ def edit():
         note = request.args.get("note")
         item = notes.get(note)
         content = get_file(item["file"]).decode()
-        return render_template("editor.html", name=note, content=content)
+        return render_template("editor.html", note=item, content=content)
 
 
 @app.route("/login", methods=["GET", "POST"])

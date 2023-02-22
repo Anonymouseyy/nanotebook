@@ -67,7 +67,16 @@ input[type="color"]::-moz-color-swatch {
   height: 50vh;
   overflow-x: hidden;
   overflow-y: auto;
+  border-radius: 10px;
 }
 .active {
   background-color: #e0e9ff;
+}
+.text-input {
+    display: block;
+    border: 1px solid #dddddd;
+    margin: 10px 10px 10px 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 10px;
 }
