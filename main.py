@@ -69,6 +69,9 @@ def edit():
         content = get_file(item["file"]).decode()
         return render_template("editor.html", note=item, content=content)
 
+    if request.method == "POST":
+        return request.form
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
