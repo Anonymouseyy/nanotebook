@@ -41,9 +41,6 @@ main
 {
     /* Scroll horizontally as needed */
     overflow-x: auto;
-
-    /* Center contents */
-    text-align: center;
 }
 
 main img
@@ -121,6 +118,14 @@ h2 {
 .column {
   float: left;
   width: 50%;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Clear floats after the columns */

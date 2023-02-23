@@ -84,16 +84,16 @@
     <div id="text-input" contenteditable="true">{{ content }}</div>
     </div>
     <div class="row">
-        <div class="column">
-            <h2>Description</h2>
-            <div contenteditable="true" class="text-input" style="height: 15vh; width: 90%; font-size: 25px">{{ note.description }}</div>
-            <div class="column"></div>
-        </div>
-        <div class="column">
+        <div class="column" style="margin-left: auto; margin-right: 0;">
             <h2>Name</h2>
             <p style="text-align: left; margin-left: 10px; font-size: 12px;">Please keep the name to 3 words at most and note that changing the name will create a brand new note.</p>
-            <div contenteditable="true" class="text-input" style="height: 41px; width: 70%; font-size: 25px; overflow: hidden; margin-top: 7px;">{{ note.key }}</div>
-            <button class="btn btn-primary" style="font-size: 2rem;">Save</button>
+            <div contenteditable="true" class="text-input" style="height: 51px; width: 70%; font-size: 25px; overflow: hidden; margin-top: 7px;">{{ note.key }}</div>
+            <button class="btn btn-primary" style="font-size: 2rem; margin-left: 10px; text-align: left;">Save</button>
+        </div>
+        <div class="column">
+            <h2>Description</h2>
+            <div contenteditable="true" class="text-input" style="height: 17vh; width: 93%; font-size: 25px">{{ note.description }}</div>
+            <div class="column"></div>
         </div>
     </div>
     <script src="/static/editor.js"></script>
