@@ -90,7 +90,7 @@ def create_note(name, description):
     file_name = filename(name)
 
     try:
-        if not create_file(f"{file_name}.txt", r"./notes", "Note"):
+        if not create_file(f"{file_name}.txt", r"./notes", ""):
             return 0
         notes.put(data={"description": description, "file": f"./notes/{file_name}.txt"}, key=name)
         return 1

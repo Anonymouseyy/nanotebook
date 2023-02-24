@@ -89,7 +89,7 @@
             <p style="text-align: left; margin-left: 10px; font-size: 12px;">Please keep the name to 3 words at most and note that changing the name will create a brand new note.</p>
             <div id="name" contenteditable="true" class="text-input" style="height: 51px; width: 70%; font-size: 25px; overflow: hidden; margin-top: 7px;">{{ note.key }}</div>
             <button id="save" class="btn btn-primary" style="font-size: 2rem; margin-left: 10px; text-align: left;">Save</button>
-            <p style="text-align: left; margin-left: 10px; font-size: 20px;"></p>
+            <p style="text-align: left; margin-left: 10px; font-size: 20px;" id="success"></p>
         </div>
         <div class="column">
             <h2>Description</h2>
@@ -100,12 +100,26 @@
     <script src="/static/editor.js"></script>
     <script>
         $("#save").click(function(){
-            let content = $("#text-input").html();
-            let name = $("#name").text();
-            let description = $("#description").text();
-            let key = "{{ note.key }}";
-            $.post("/edit", {key: key, name: name, description: description, content: content}, function(data, status){
-                alert("Data: " + data + "\nStatus: " + status);
+            let c = $("#text-input").html();
+            let n = $("#name").text();
+            let d = $("#description").text();
+            let k = "{{ note.key }}";
+            var server_data = [
+                {"key": k},
+                {"name": n},
+                {"description": d},
+                {"content": c}
+            ];
+
+            $.ajax({
+                type: "POST",
+                url: "/edit",
+                data: JSON.stringify(server_data),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function(result) {
+                    $("#success").text("Save Successful");
+                }
             });
         });
     </script>

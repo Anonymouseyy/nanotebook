@@ -70,7 +70,8 @@ def edit():
         return render_template("editor.html", note=item, content=content)
 
     if request.method == "POST":
-        return request.form
+        print(request.get_json())
+        return redirect('/')
 
 
 @app.route("/login", methods=["GET", "POST"])
