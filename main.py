@@ -1,5 +1,5 @@
 import os
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
@@ -12,8 +12,8 @@ from helpers import *
 # Configure application
 app = Flask(__name__)
 load_dotenv()
-deta = Deta(os.environ.get('API_KEY'))
-notes = deta.Base('notes')
+deta = Deta(os.environ.get("API_KEY"))
+notes = deta.Base("notes")
 drive = deta.Drive("mydrive")
 
 # Ensure templates are auto-reloaded
@@ -67,11 +67,27 @@ def edit():
         note = request.args.get("note")
         item = notes.get(note)
         content = get_file(item["file"]).decode()
+        print(content, item)
         return render_template("editor.html", note=item, content=content)
 
     if request.method == "POST":
-        print(request.get_json())
-        return redirect('/')
+        data = request.get_json()
+        # [{'key': 'The First Note'}, {'name': 'The First Note'}, {'description': 'The actual first note lmao'}, {'content': 'Note'}]
+        if data[0]["key"] == data[1]["name"]:
+            item = notes.get(data[0]["key"])
+            if item["description"] == data[2]["description"]:
+                pass
+            else:
+                notes.update({"description": data[2]["description"]}, data[0]["key"])
+
+            file_name = filename(data[0]["key"])
+            create_file(f"{file_name}.txt", r"./notes", data[3]["content"])
+
+            return jsonify({"res": "success"})
+        else:
+            pass
+        item = notes.get(data[0]["key"])
+        return redirect("/")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -89,7 +105,7 @@ def login():
             return apology("must provide password", 400)
 
         # Ensure password is correct
-        if not check_password_hash(os.environ.get('password'), request.form.get("password")):
+        if not check_password_hash(os.environ.get("password"), request.form.get("password")):
             return apology("Password is incorrect", 400)
 
         # Remember which user has logged in

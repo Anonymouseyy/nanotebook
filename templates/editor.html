@@ -118,7 +118,13 @@
                 contentType: "application/json",
                 dataType: 'json',
                 success: function(result) {
-                    $("#success").text("Save Successful");
+                    if (result.res == "renamed") {
+                        window.location.href = "/";
+                    } else {
+                        $("#success").show();
+                        $("#success").text("Save Successful");
+                        $("#success").fadeOut(5000);
+                    }
                 }
             });
         });
