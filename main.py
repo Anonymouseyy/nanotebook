@@ -67,7 +67,6 @@ def edit():
         note = request.args.get("note")
         item = notes.get(note)
         content = get_file(item["file"]).decode()
-        print(content, item)
         return render_template("editor.html", note=item, content=content)
 
     if request.method == "POST":
@@ -86,10 +85,12 @@ def edit():
             return jsonify({"res": "success"})
         else:
             create_note(data[1]["name"], data[2]["description"])
-            item = notes.get(data[1]["name"])
-
             file_name = filename(data[1]["name"])
             create_file(f"{file_name}.txt", r"./notes", data[3]["content"])
+
+            item = notes.get(data[0]["key"])
+            notes.delete(data[0]["key"])
+            drive.delete(item["file"])
             
             return jsonify({"res": "renamed"})
 
