@@ -3,7 +3,6 @@ let advancedOptionButton = document.querySelectorAll(".adv-option-button");
 let fontName = document.getElementById("fontName");
 let fontSizeRef = document.getElementById("fontSize");
 let writingArea = document.getElementById("text-input");
-let linkButton = document.getElementById("createLink");
 let alignButtons = document.querySelectorAll(".align");
 let spacingButtons = document.querySelectorAll(".spacing");
 let formatButtons = document.querySelectorAll(".format");
@@ -67,18 +66,6 @@ advancedOptionButton.forEach((button) => {
   button.addEventListener("change", () => {
     modifyText(button.id, false, button.value);
   });
-});
-
-//link
-linkButton.addEventListener("click", () => {
-  let userLink = prompt("Enter a URL");
-  //if link has http then pass directly else add https
-  if (/http/i.test(userLink)) {
-    modifyText(linkButton.id, false, userLink);
-  } else {
-    userLink = "http://" + userLink;
-    modifyText(linkButton.id, false, userLink);
-  }
 });
 
 //Highlight clicked button
