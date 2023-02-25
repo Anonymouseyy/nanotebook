@@ -10,48 +10,48 @@
     <div class="container">
     <div class="options">
         <!-- Text Format -->
-        <button id="bold" class="option-button format textbutton">
+        <button id="bold" class="option-button format textbutton" data-bs-toggle="tooltip" title="Bold">
         <i class="fa-solid fa-bold"></i>
         </button>
-        <button id="italic" class="option-button format textbutton">
+        <button id="italic" class="option-button format textbutton" data-bs-toggle="tooltip" title="Italicize">
         <i class="fa-solid fa-italic"></i>
         </button>
-        <button id="underline" class="option-button format textbutton">
+        <button id="underline" class="option-button format textbutton" data-bs-toggle="tooltip" title="Underline">
         <i class="fa-solid fa-underline"></i>
         </button>
-        <button id="strikethrough" class="option-button format textbutton">
+        <button id="strikethrough" class="option-button format textbutton" data-bs-toggle="tooltip" title="Strikethrough">
         <i class="fa-solid fa-strikethrough"></i>
         </button>
-        <button id="superscript" class="option-button script textbutton">
+        <button id="superscript" class="option-button script textbutton" data-bs-toggle="tooltip" title="Superscript">
         <i class="fa-solid fa-superscript"></i>
         </button>
-        <button id="subscript" class="option-button script textbutton">
+        <button id="subscript" class="option-button script textbutton" data-bs-toggle="tooltip" title="Subscript">
         <i class="fa-solid fa-subscript"></i>
         </button>
         <!-- Undo/Redo -->
-        <button id="undo" class="option-button textbutton">
+        <button id="undo" class="option-button textbutton" data-bs-toggle="tooltip" title="Undo">
         <i class="fa-solid fa-rotate-left"></i>
         </button>
-        <button id="redo" class="option-button textbutton">
+        <button id="redo" class="option-button textbutton" data-bs-toggle="tooltip" title="Redo">
         <i class="fa-solid fa-rotate-right"></i>
         </button>
         <!-- Alignment -->
-        <button id="justifyLeft" class="option-button align textbutton">
+        <button id="justifyLeft" class="option-button align textbutton" data-bs-toggle="tooltip" title="Left Align">
         <i class="fa-solid fa-align-left"></i>
         </button>
-        <button id="justifyCenter" class="option-button align textbutton">
+        <button id="justifyCenter" class="option-button align textbutton" data-bs-toggle="tooltip" title="Center">
         <i class="fa-solid fa-align-center"></i>
         </button>
-        <button id="justifyRight" class="option-button align textbutton">
+        <button id="justifyRight" class="option-button align textbutton" data-bs-toggle="tooltip" title="Right Align">
         <i class="fa-solid fa-align-right"></i>
         </button>
-        <button id="justifyFull" class="option-button align textbutton">
+        <button id="justifyFull" class="option-button align textbutton" data-bs-toggle="tooltip" title="Justify Full">
         <i class="fa-solid fa-align-justify"></i>
         </button>
-        <button id="indent" class="option-button spacing textbutton">
+        <button id="indent" class="option-button spacing textbutton" data-bs-toggle="tooltip" title="Indent">
         <i class="fa-solid fa-indent"></i>
         </button>
-        <button id="outdent" class="option-button spacing textbutton">
+        <button id="outdent" class="option-button spacing textbutton" data-bs-toggle="tooltip" title="Unindent">
         <i class="fa-solid fa-outdent"></i>
         </button>
         <!-- Font -->
@@ -74,8 +74,10 @@
             <h2>Name</h2>
             <p style="text-align: left; margin-left: 10px; font-size: 12px;">Please keep the name to 3 words at most and note that changing the name will create a brand new note.</p>
             <div id="name" contenteditable="true" class="text-input" style="height: 51px; width: 70%; font-size: 25px; overflow: hidden; margin-top: 7px;">{{ note.key }}</div>
-            <button id="save" class="btn btn-primary" style="font-size: 2rem; margin-left: 10px; text-align: left;">Save</button>
-            <p style="text-align: left; margin-left: 10px; font-size: 20px;" id="success"></p>
+            <div style="display: -webkit-inline-box;">
+                <button id="save" class="btn btn-primary" style="font-size: 2rem; margin-left: 10px; text-align: left;"><div id="spinner" class="spinner-border text-light"></div> Save</button>
+                <p style="text-align: left; margin-left: 10px; font-size: 20px;" id="success">Save Successful</p>
+            </div>
         </div>
         <div class="column">
             <h2>Description</h2>
@@ -85,7 +87,10 @@
     </div>
     <script src="/static/editor.js"></script>
     <script>
+        $("#success").hide();
+        $("#spinner").hide();
         $("#save").click(function(){
+            $("#spinner").fadeIn(2000);
             let c = $("#text-input").html();
             let n = $("#name").text();
             let d = $("#description").text();
@@ -107,8 +112,8 @@
                     if (result.res == "renamed") {
                         window.location.href = "/";
                     } else {
+                        $("#spinner").fadeOut(500);
                         $("#success").show();
-                        $("#success").text("Save Successful");
                         $("#success").fadeOut(5000);
                     }
                 }

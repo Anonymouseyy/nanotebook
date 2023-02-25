@@ -1,6 +1,7 @@
 import os
 from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from flask_session import Session
+from jinja2.utils import markupsafe
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -67,7 +68,12 @@ def edit():
         note = request.args.get("note")
         item = notes.get(note)
         content = get_file(item["file"]).decode()
-        return render_template("editor.html", note=item, content=content)
+
+        text = markupsafe.Markup(content)
+        text = text.replace('<form>', '&lt;form&gt;').replace('</form>', '&lt;/form&gt;')
+        text = text.replace('<script>', '&lt;script&gt;').replace('</script>', '&lt;/script&gt;')
+
+        return render_template("editor.html", note=item, content=text)
 
     if request.method == "POST":
         data = request.get_json()

@@ -10,10 +10,13 @@
     <ol class="js-grid notes-grid group dribbles  container-fluid">
         {% for note in notes %}
         <li>
+            <div class="p">
+            <button class="icon-btn del" data-bs-html="true"><i class="fa-sharp fa-solid fa-trash del-ico"></i></button>
             <a href="/edit?note={{ note.key }}" methods="get" class="nav-link">
-                <h1>{{ note.key }}</h1>
-                <p>{{ note.description }}</p>
+                <h1 class="notetitle">{{ note.key }}</h1>
+                <p class="notedesc">{{ note.description }}</p>
             </a>
+            </div>
         </li>
         {% endfor %}
     </ol>
