@@ -11,8 +11,8 @@
         {% for note in notes %}
         <li>
             <div class="p">
-            <button class="icon-btn del" data-bs-html="true"><i class="fa-sharp fa-solid fa-trash del-ico"></i></button>
-            <a href="/edit?note={{ note.key }}" methods="get" class="nav-link">
+            <button class="icon-btn del" onclick="document.getElementById('del{{ note.key }}').style.display='block'"><i class="fa-sharp fa-solid fa-trash del-ico"></i></button>
+            <a href="/edit/note?note={{ note.key }}" methods="get" class="nav-link">
                 <h1 class="notetitle">{{ note.key }}</h1>
                 <p class="notedesc">{{ note.description }}</p>
             </a>
@@ -20,4 +20,22 @@
         </li>
         {% endfor %}
     </ol>
+
+    {% for note in notes %}
+    <div id="del{{ note.key }}" class="modal">
+        <span onclick="document.getElementById('del{{ note.key }}').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <form class="modal-content" action="/delete/note" method="post">
+            <div class="container">
+                <h1 style="color: black;">Delete</h1>
+                <p style="color: black;">Are you sure you want to {{ note.key }}?</p>
+
+                <input type="hidden" name="note" value="{{ note.key }}" />
+                <div class="clearfix">
+                    <button type="button" class="cancelbtn">Cancel</button>
+                    <button type="submit" class="deletebtn">Delete</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% endfor %}
 {% endblock %}

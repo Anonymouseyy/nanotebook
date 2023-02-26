@@ -44,9 +44,9 @@ def index():
     return render_template("index.html", notes=notes.fetch().items)
 
 
-@app.route("/create", methods=["GET", "POST"])
+@app.route("/create/note", methods=["GET", "POST"])
 @login_required
-def create():
+def createnote():
     """Create new items"""
     if request.method == "POST":
         if not request.form.get("name") and not request.form.get("desc"):
@@ -61,9 +61,21 @@ def create():
     return render_template("create.html")
 
 
-@app.route("/edit", methods=["GET", "POST"])
+@app.route("/delete/note", methods=["POST"])
 @login_required
-def edit():
+def delete_note():
+    note = request.form.get("note")
+
+    item = notes.get(note)
+    drive.delete(item["file"])
+    notes.delete(note)
+
+    return redirect("/")
+
+
+@app.route("/edit/note", methods=["GET", "POST"])
+@login_required
+def edit_note():
     if request.method == "GET":
         note = request.args.get("note")
         item = notes.get(note)
