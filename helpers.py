@@ -1,16 +1,13 @@
 import os
-import urllib.parse
-from deta import Deta
-
 from flask import redirect, render_template, session
 from functools import wraps
 from dotenv import load_dotenv
+from deta_tools import detaDrive
 
 load_dotenv()
+API_KEY = os.environ.get("API_KEY")
 
-deta = Deta(os.environ.get('API_KEY'))
-notes = deta.Base('notes')
-drive = deta.Drive("mydrive")
+notes = detaDrive(API_KEY, "notes")
 
 
 def apology(message, code=400):
@@ -40,6 +37,24 @@ def login_required(f):
     return decorated_function
 
 
+def filename(name):
+    '''
+    Returns a valid file name by escaping all invalid characters in a file name
+    :param name: str
+        Name of the file
+    :return: str
+        Name of the valid file name
+    '''
+    file_name = name
+    invalid_chars = ["#", "<", "$", "+", "%", ">", "!", "`", "&", "*", "'",
+                     '"', "|", "{", "}", "?", "=", "/", ":", "\"", " ", "@"]
+
+    for char in invalid_chars:
+        file_name = file_name.replace(char, "_")
+
+    return file_name
+
+
 def create_file(filename, path, content):
     '''
     Creates a file with a name, path, and content
@@ -59,24 +74,6 @@ def create_file(filename, path, content):
         return 0
 
 
-def filename(name):
-    '''
-    Returns a valid file name by escaping all invalid characters in a file name
-    :param name: str
-        Name of the file
-    :return: str
-        Name of the valid file name
-    '''
-    file_name = name
-    invalid_chars = ["#", "<", "$", "+", "%", ">", "!", "`", "&", "*", "'",
-                     '"', "|", "{", "}", "?", "=", "/", ":", "\"", " ", "@"]
-
-    for char in invalid_chars:
-        file_name = file_name.replace(char, "_")
-
-    return file_name
-
-
 def create_note(name, description):
     '''
     Creates a note with the given name and description
@@ -92,7 +89,7 @@ def create_note(name, description):
     try:
         if not create_file(f"{file_name}.txt", r"./notes", "Note"):
             return 0
-        notes.put(data={"description": description, "file": f"./notes/{file_name}.txt"}, key=name)
+        notes.put(data={"description": description, "file": f"./notes/{file_name}.txt"}, keys=name)
         return 1
     except Exception as e:
         return 0

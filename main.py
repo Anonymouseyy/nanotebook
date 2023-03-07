@@ -6,16 +6,12 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 from dotenv import load_dotenv
-from deta import Deta
+from deta_tools import detaDrive
 
 from helpers import *
 
 # Configure application
 app = Flask(__name__)
-load_dotenv()
-deta = Deta(os.environ.get("API_KEY"))
-notes = deta.Base("notes")
-drive = deta.Drive("mydrive")
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -29,11 +25,16 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
+
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
+load_dotenv()
+API_KEY = os.environ.get("API_KEY")
+notes = detaDrive(API_KEY, "notes")
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -41,7 +42,7 @@ Session(app)
 def index():
     """Home Page"""
 
-    return render_template("index.html", notes=notes.fetch().items)
+    return render_template("index.html", notes=notes.fetch().items) # need to rewrite this
 
 
 @app.route("/create/note", methods=["GET", "POST"])
@@ -161,6 +162,7 @@ def errorhandler(e):
     if not isinstance(e, HTTPException):
         e = InternalServerError()
     return apology(e.name, e.code)
+
 
 # Listen for errors
 for code in default_exceptions:
