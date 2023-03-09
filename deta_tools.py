@@ -14,7 +14,7 @@ def get_project_key_id(project_key: str = None, project_id: str = None):
     return project_key, project_id
 
 
-class detaDrive:
+class detaBase:
     def __init__(self, key, name):
         self.key = key
         self.url = f"https://database.deta.sh/v1/{get_project_key_id(key)[1]}/{name}"

@@ -6,7 +6,7 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 from dotenv import load_dotenv
-from deta_tools import detaDrive
+from deta_tools import detaBase
 
 from helpers import *
 
@@ -34,7 +34,7 @@ Session(app)
 
 load_dotenv()
 API_KEY = os.environ.get("API_KEY")
-notes = detaDrive(API_KEY, "notes")
+notes = detaBase(API_KEY, "notes")
 
 
 @app.route("/", methods=["GET", "POST"])

@@ -2,12 +2,12 @@ import os
 from flask import redirect, render_template, session
 from functools import wraps
 from dotenv import load_dotenv
-from deta_tools import detaDrive
+from deta_tools import detaBase
 
 load_dotenv()
 API_KEY = os.environ.get("API_KEY")
 
-notes = detaDrive(API_KEY, "notes")
+notes = detaBase(API_KEY, "notes")
 
 
 def apology(message, code=400):
