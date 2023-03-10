@@ -1,4 +1,5 @@
 import requests
+from urllib.parse import quote
 
 
 def get_project_key_id(project_key: str = None, project_id: str = None):
@@ -40,16 +41,16 @@ class detaBase:
         return requests.put(f"{self.url}/items", headers=self.def_header, data={items}) or None
 
     def get(self, key):
-        return requests.get(f"{self.url}/items/{key}", headers=self.def_header) or None
+        return requests.get(f"{self.url}/items/{quote(key)}", headers=self.def_header) or None
 
     def delete(self, key):
-        return requests.delete(f"{self.url}/items/{key}", headers=self.def_header) or None
+        return requests.delete(f"{self.url}/items/{quote(key)}", headers=self.def_header) or None
 
     def insert(self, item):
         return requests.post(f"{self.url}/items", headers=self.def_header, data={"item": item}) or None
 
     def update(self, key, updates):
-        return requests.patch(f"{self.url}/items/{key}", headers=self.def_header, data={"set": updates}) or None
+        return requests.patch(f"{self.url}/items/{quote(key)}", headers=self.def_header, data={"set": updates}) or None
 
     def query(self, query, limit):
         return requests.post(f"{self.url}/query", headers=self.def_header, data={"query": query,
