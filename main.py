@@ -42,7 +42,7 @@ notes = detaBase(API_KEY, "notes")
 def index():
     """Home Page"""
 
-    return render_template("index.html", notes=notes.fetch().items) # need to rewrite this
+    return render_template("index.html", notes=notes.query()["items"])
 
 
 @app.route("/create/note", methods=["GET", "POST"])
@@ -51,6 +51,7 @@ def createnote():
     """Create new items"""
     if request.method == "POST":
         if not request.form.get("name") and not request.form.get("desc"):
+
             return apology("must have name and description")
 
         if create_note(request.form.get("name"), request.form.get("desc")):
@@ -96,7 +97,7 @@ def edit_note():
             if item["description"] == data[2]["description"]:
                 pass
             else:
-                notes.update({"description": data[2]["description"]}, data[0]["key"])
+                notes.update(data[0]["key"], {"description": data[2]["description"]})
 
             file_name = filename(data[0]["key"])
             create_file(f"{file_name}.txt", r"./notes", data[3]["content"])

@@ -23,6 +23,13 @@ class detaBase:
             'X-API-Key': key
         }
 
+    @staticmethod
+    def checkok(response):
+        if response.ok:
+            return response.json()
+        else:
+            return None
+
     def put(self, keys, data):
         items = []
         for i in range(len(data)):
@@ -38,20 +45,26 @@ class detaBase:
             else:
                 items.append(data[i])
 
-        return requests.put(f"{self.url}/items", headers=self.def_header, data={items}) or None
+        return self.checkok(requests.put(f"{self.url}/items", headers=self.def_header, data={items}))
 
     def get(self, key):
-        return requests.get(f"{self.url}/items/{quote(key)}", headers=self.def_header) or None
+        return self.checkok(requests.get(f"{self.url}/items/{quote(key)}", headers=self.def_header))
 
     def delete(self, key):
-        return requests.delete(f"{self.url}/items/{quote(key)}", headers=self.def_header) or None
+        return self.checkok(requests.delete(f"{self.url}/items/{quote(key)}", headers=self.def_header))
 
     def insert(self, item):
-        return requests.post(f"{self.url}/items", headers=self.def_header, data={"item": item}) or None
+        return self.checkok(requests.post(f"{self.url}/items", headers=self.def_header, data={"item": item}))
 
     def update(self, key, updates):
-        return requests.patch(f"{self.url}/items/{quote(key)}", headers=self.def_header, data={"set": updates}) or None
+        return self.checkok(requests.patch(f"{self.url}/items/{quote(key)}", headers=self.def_header, data={"set": updates}))
 
-    def query(self, query, limit):
-        return requests.post(f"{self.url}/query", headers=self.def_header, data={"query": query,
-                                                                                 "limit": limit}) or None
+    def query(self, query=None, limit=None):
+        data = {}
+
+        if query:
+            data["query"] = query
+        if limit:
+            data["limit"] = limit
+
+        return self.checkok(requests.post(f"{self.url}/query", headers=self.def_header, data=data))
