@@ -68,3 +68,27 @@ class detaBase:
             data["limit"] = limit
 
         return self.checkok(requests.post(f"{self.url}/query", headers=self.def_header, data=data))
+
+
+class detaDrive:
+    def __init__(self, key, name):
+        self.key = key
+        self.url = f"https://drive.deta.sh/v1/{get_project_key_id(key)[1]}/{name}"
+        self.def_header = {
+            'X-API-Key': key
+        }
+
+    @staticmethod
+    def checkok(response):
+        if response.ok:
+            return response.json()
+        else:
+            return None
+
+    def list(self, limit, prefix, last):
+        url = f"{self.url}/files?" + (f"limit={limit}&" if limit else '') + (f"prefix={prefix}&" if prefix else '') \
+              + (f"last={last}&" if last else '')
+        return self.checkok(requests.get(url, headers=self.def_header))
+
+    def delete(self, files):
+        return self.checkok(requests.delete(f"{self.url}/files", headers=self.def_header, data={"names": files}))
