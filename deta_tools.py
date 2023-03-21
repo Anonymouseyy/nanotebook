@@ -1,4 +1,4 @@
-import requests
+import requests, sys, os
 from urllib.parse import quote
 
 
@@ -84,6 +84,55 @@ class detaDrive:
             return response.json()
         else:
             return None
+
+    def put(self, file_name, content=None, file_path=None):
+        if content ^ file_path:
+            raise AssertionError("No content or file path")
+
+        if file_path and not os.path.isfile(file_path):
+            raise AssertionError("No file exists at that location")
+
+        size = sys.getsizeof(content.decode("utf8")) if content else os.path.getsize(file_path)
+
+        if size <= 1e6:
+            url = f"{self.url}/files?name={file_name}"
+
+            if content:
+                return self.checkok(requests.post(url, headers=self.def_header, data=content))
+
+            if file_path:
+                with open(file_path, "rb") as f:
+                    file_content = f.read()
+                return self.checkok(requests.post(url, headers=self.def_header, data=file_content))
+
+        if size > 1e6:
+            # Initialize chunked upload
+            init = self.checkok(requests.post(f"{self.url}/uploads?name={file_name}", headers=self.def_header))
+            if init is None:
+                raise AssertionError("Something went wrong while initializing the upload")
+
+            upload_id = init["upload_id"]
+
+            if content:
+                pass # CODE NEEDED HERE LMAO
+
+            if file_path:
+                file = open(file_path, "rb")
+                [part] = 1
+
+                while True:
+                    chunk = file.read(9000000)
+                    if not chunk: break
+                    if not requests.post(f"{self.url}/uploads/{upload_id}/parts?name={file_name}&part={part}", headers=self.def_header).ok:
+                        file.close()
+                        requests.delete(f"{self.url}/uploads/{upload_id}?name={file_name}", headers=self.def_header)
+                        raise AssertionError("Something went wrong while uplaoding the file")
+                    part += 1
+
+                file.close()
+                return self.checkok(requests.patch(f"{self.url}/uploads/{upload_id}/parts?name={file_name}", headers=self.def_header))
+
+        raise AssertionError("Something went wrong")
 
     def list(self, limit, prefix, last):
         url = f"{self.url}/files?" + (f"limit={limit}&" if limit else '') + (f"prefix={prefix}&" if prefix else '') \
