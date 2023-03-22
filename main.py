@@ -35,6 +35,7 @@ Session(app)
 load_dotenv()
 API_KEY = os.environ.get("API_KEY")
 notes = detaBase(API_KEY, "notes")
+drive = detaDrive(API_KEY, "mydrive")
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -69,7 +70,7 @@ def delete_note():
     note = request.form.get("note")
 
     item = notes.get(note)
-    drive.delete(item["file"])
+    drive.delete([item["file"]])
     notes.delete(note)
 
     return redirect("/")
@@ -110,7 +111,7 @@ def edit_note():
 
             item = notes.get(data[0]["key"])
             notes.delete(data[0]["key"])
-            drive.delete(item["file"])
+            drive.delete([item["file"]])
             
             return jsonify({"res": "renamed"})
 

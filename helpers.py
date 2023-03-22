@@ -2,12 +2,13 @@ import os
 from flask import redirect, render_template, session
 from functools import wraps
 from dotenv import load_dotenv
-from deta_tools import detaBase
+from deta_tools import detaBase, detaDrive
 
 load_dotenv()
 API_KEY = os.environ.get("API_KEY")
 
 notes = detaBase(API_KEY, "notes")
+drive = detaDrive(API_KEY, "mydrive")
 
 
 def apology(message, code=400):
@@ -68,7 +69,7 @@ def create_file(filename, path, content):
         The file name if successful, otherwise redirects to apology
     '''
     try:
-        drive.put(f"{path}/{filename}", content)
+        drive.put(f"{path}/{filename}", content=content)
         return 1
     except Exception as e:
         return 0
@@ -105,13 +106,13 @@ def get_file(name, return_type="str"):
     :return:
         A string of bytes or a file path
     '''
-    file = drive.get(name)
+    res = drive.get(name)
     if return_type == "str":
-        return file.read()
+        return res
     else:
-        with open(f"tempfile.{os.path.splitext(file)[-1]}", "wb+") as f:
-            for chunk in file.iter_chunks(4096):
+        with open(f"tempfile.{os.path.splitext(res)[-1]}", "wb+") as f:
+            for chunk in res.iter_chunks(4096):
                 f.write(chunk)
-            file.close()
+            res.close()
         return f"tempfile.{os.path.splitext(file)[-1]}"
 
