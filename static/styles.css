@@ -53,7 +53,7 @@ h1 {
     text-align: center;
     color: white;
     margin: 25px 50px 50px 50px;
-    font-size: 75px;
+    font-size: 8vh;
     font-weight: bold;
 }
 
@@ -61,7 +61,7 @@ h2 {
     text-align: left;
     color: white;
     margin: 30px 10px 10px 10px;
-    font-size: 40px;
+    font-size: 4vh;
 }
 
 .main-content {
@@ -70,13 +70,26 @@ h2 {
     padding-bottom: 2%;
 }
 
-.notes-grid {
-    display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
-    column-gap: 20px;
-    row-gap: 20px;
-    justify-content: space-evenly;
-    margin: 50px 0px 50px 0px;
+@media (orientation: landscape) {
+    .notes-grid {
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+        column-gap: 20px;
+        row-gap: 20px;
+        justify-content: space-evenly;
+        margin: 50px 0px 50px 0px;
+    }
+}
+
+@media (orientation: portrait) {
+    .notes-grid {
+        display: grid;
+        grid-template-columns: 100%;
+        column-gap: 20px;
+        row-gap: 20px;
+        justify-content: space-evenly;
+        margin: 50px 0px 50px 0px;
+    }
 }
 
 .notes-grid>li {
@@ -137,8 +150,8 @@ h2 {
 
 .del {
   position:absolute;
-  top: 10px;
-  left: 93%;
+  top: 5%;
+  left: 90%;
 }
 
 .p {
