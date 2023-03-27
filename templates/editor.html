@@ -66,6 +66,10 @@
             <input type="color" id="backColor" class="adv-option-button" />
             <label for="backColor">Highlight Color</label>
         </div>
+        <div style="display: -webkit-inline-box;">
+            <button id="save-small" class="btn btn-primary" style="font-size: 1rem; margin-left: 10px; text-align: left;"><div id="spinner-small" class="spinner-border text-light"></div> Save</button>
+            <p style="text-align: left; margin-left: 10px; font-size: 20px;" id="success-small">Save Successful</p>
+        </div>
     </div>
     <div id="text-input" contenteditable="true">{{ content }}</div>
     </div>
@@ -115,6 +119,39 @@
                         $("#spinner").fadeOut(500);
                         $("#success").show();
                         $("#success").fadeOut(5000);
+                    }
+                }
+            });
+        });
+
+        $("#success-small").hide();
+        $("#spinner-small").hide();
+        $("#save-small").click(function(){
+            $("#spinner-small").fadeIn(2000);
+            let c = $("#text-input").html();
+            let n = $("#name").text();
+            let d = $("#description").text();
+            let k = "{{ note.key }}";
+            var server_data = [
+                {"key": k},
+                {"name": n},
+                {"description": d},
+                {"content": c}
+            ];
+
+            $.ajax({
+                type: "POST",
+                url: "/edit/note",
+                data: JSON.stringify(server_data),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function(result) {
+                    if (result.res == "renamed") {
+                        window.location.href = "/";
+                    } else {
+                        $("#spinner-small").fadeOut(500);
+                        $("#success-small").show();
+                        $("#success-small").fadeOut(5000);
                     }
                 }
             });
