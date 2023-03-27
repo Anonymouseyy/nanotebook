@@ -31,11 +31,13 @@
 
                 <input type="hidden" name="note" value="{{ note.key }}" />
                 <div class="clearfix">
-                    <button type="button" class="cancelbtn">Cancel</button>
+                    <button type="button" onclick="document.getElementById('del{{ note.key }}').style.display='none'" class="cancelbtn">Cancel</button>
                     <button type="submit" class="deletebtn">Delete</button>
                 </div>
             </div>
         </form>
+        <script>
+    </script>
     </div>
     {% endfor %}
 {% endblock %}
