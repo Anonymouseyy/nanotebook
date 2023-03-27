@@ -67,7 +67,7 @@
             <label for="backColor">Highlight Color</label>
         </div>
         <div style="display: -webkit-inline-box;">
-            <button id="save-small" class="btn btn-primary" style="font-size: 1rem; margin-left: 10px; text-align: left;"><div id="spinner-small" class="spinner-border text-light"></div> Save</button>
+            <button id="save-small" class="btn btn-primary" style="font-size: 1rem; margin-left: 10px; text-align: left;"><div id="spinner-small" style="width: 1.2rem; height: 1.2rem;" class="spinner-border text-light"></div> Save</button>
             <p style="text-align: left; margin-left: 10px; font-size: 20px;" id="success-small">Save Successful</p>
         </div>
     </div>
@@ -94,6 +94,7 @@
         $("#success").hide();
         $("#spinner").hide();
         $("#save").click(function(){
+            $("#save").prop("disabled", true);
             $("#spinner").fadeIn(2000);
             let c = $("#text-input").html();
             let n = $("#name").text();
@@ -122,11 +123,14 @@
                     }
                 }
             });
+
+            $("#save").prop("disabled", false);
         });
 
         $("#success-small").hide();
         $("#spinner-small").hide();
         $("#save-small").click(function(){
+            $("#save-small").prop("disabled", true);
             $("#spinner-small").fadeIn(2000);
             let c = $("#text-input").html();
             let n = $("#name").text();
@@ -155,6 +159,8 @@
                     }
                 }
             });
+
+            $("#save-small").prop("disabled", false);
         });
     </script>
 
