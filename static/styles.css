@@ -106,7 +106,7 @@ h2 {
 
 .notetitle {
     text-align: left;
-    font-size: 3vh;
+    font-size: 3.5vh;
     margin: 10px;
     overflow: hidden;
 }
@@ -114,7 +114,7 @@ h2 {
 .notedesc {
     text-align: left;
     color: white;
-    font-size: 1.5vh;
+    font-size: 2vh;
     margin: 10px;
 }
 
