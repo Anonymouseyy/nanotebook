@@ -67,8 +67,8 @@
             <label for="backColor">Highlight Color</label>
         </div>
         <div style="display: -webkit-inline-box;">
-            <button id="save-small" class="btn btn-primary" style="font-size: 1rem; margin-left: 10px; text-align: left;"><div id="spinner-small" style="width: 1.2rem; height: 1.2rem;" class="spinner-border text-light"></div> Save</button>
-            <p style="text-align: left; margin-left: 10px; font-size: 20px;" id="success-small">Save Successful</p>
+            <button id="save-small" class="btn btn-primary" style="font-size: 1rem; margin-left: 10px; text-align: left;"><i id="success-small" class="fa-solid fa-check"></i>
+                <div id="spinner-small" style="width: 1.2rem; height: 1.2rem;" class="spinner-border text-light"></div> Save</button>
         </div>
     </div>
     <div id="text-input" contenteditable="true">{{ content }}</div>
@@ -79,8 +79,8 @@
             <p style="text-align: left; margin-left: 10px; font-size: 12px;">Please keep the name to 3 words at most and note that changing the name will create a brand new note.</p>
             <div id="name" contenteditable="true" class="text-input" style="height: 51px; width: 70%; font-size: 25px; overflow: hidden; margin-top: 7px;">{{ note.key }}</div>
             <div style="display: -webkit-inline-box;">
-                <button id="save" class="btn btn-primary" style="font-size: 1.5rem; margin-left: 10px; text-align: left;"><div id="spinner" class="spinner-border text-light"></div> Save</button>
-                <p style="text-align: left; margin-left: 10px; font-size: 20px;" id="success">Save Successful</p>
+                <button id="save" class="btn btn-primary" style="font-size: 1.5rem; margin-left: 10px; text-align: left;"><i id="success" class="fa-solid fa-check"></i>
+                    <div id="spinner" class="spinner-border text-light"></div> Save</button>
             </div>
         </div>
         <div class="column">
@@ -95,7 +95,7 @@
         $("#spinner").hide();
         $("#save").click(function(){
             $("#save").prop("disabled", true);
-            $("#spinner").fadeIn(2000);
+            $("#spinner").fadeIn(500);
             let c = $("#text-input").html();
             let n = $("#name").text();
             let d = $("#description").text();
@@ -117,9 +117,9 @@
                     if (result.res == "renamed") {
                         window.location.href = "/";
                     } else {
-                        $("#spinner").fadeOut(500);
+                        $("#spinner").hide();
                         $("#success").show();
-                        $("#success").fadeOut(5000);
+                        $("#success").fadeOut(1000);
                     }
                 }
             });
@@ -131,7 +131,7 @@
         $("#spinner-small").hide();
         $("#save-small").click(function(){
             $("#save-small").prop("disabled", true);
-            $("#spinner-small").fadeIn(2000);
+            $("#spinner-small").fadeIn(500);
             let c = $("#text-input").html();
             let n = $("#name").text();
             let d = $("#description").text();
@@ -153,9 +153,9 @@
                     if (result.res == "renamed") {
                         window.location.href = "/";
                     } else {
-                        $("#spinner-small").fadeOut(500);
+                        $("#spinner-small").hide();
                         $("#success-small").show();
-                        $("#success-small").fadeOut(5000);
+                        $("#success-small").fadeOut(1000);
                     }
                 }
             });

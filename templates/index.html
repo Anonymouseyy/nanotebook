@@ -7,7 +7,7 @@
 {% block main %}
     <h1>Home</h1>
     <hr class="topline">
-    <ol class="js-grid notes-grid group dribbles  container-fluid">
+    <ol class="js-grid notes-grid group dribbles container-fluid" id="sortablelist">
         {% for note in notes %}
         <li>
             <div class="p">
@@ -36,8 +36,8 @@
                 </div>
             </div>
         </form>
-        <script>
-    </script>
     </div>
     {% endfor %}
+    <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
+    <script src="/static/index.js"></script>
 {% endblock %}
