@@ -1,0 +1,22 @@
+.font-color {
+    background: white;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+.clock {
+    margin: 5px;
+    display: inline-block;
+    position: relative;
+}
+
+#time {
+    font-size: 4rem;
+}
+
+#med {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+}
