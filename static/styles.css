@@ -63,6 +63,16 @@ h2 {
     padding-bottom: 2%;
 }
 
+.block {
+    display: block;
+    background-color: #40444b;
+    border-radius: 25px;
+    height: 40vh;
+    overflow: hidden;
+    width: 75vw;
+    margin: auto;
+}
+
 @media (orientation:landscape) {
     .notes-grid {
         display: grid;
