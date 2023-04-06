@@ -39,7 +39,7 @@ $(document).ready(function () {
         ];
         var midDay= "AM"
         midDay = (hour>=12)? "PM":"AM";
-        hour = (hour==0)?12:((hour<12)? hour:(hour-12));
+        hour = (hour==0)?12:((hour<=12)? hour:(hour-12));
         hour = updateTime(hour);
         min = updateTime(min);
         sec = updateTime(sec);
