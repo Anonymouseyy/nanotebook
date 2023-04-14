@@ -7,6 +7,7 @@ from werkzeug.exceptions import default_exceptions, HTTPException, InternalServe
 from werkzeug.security import check_password_hash, generate_password_hash
 from dotenv import load_dotenv
 from deta_tools import detaBase
+from urllib.parse import unquote
 
 from helpers import *
 
@@ -93,15 +94,16 @@ def edit_note():
 
     if request.method == "POST":
         data = request.get_json()
+        key = unquote(data[0]["key"])
 
-        if data[0]["key"] == data[1]["name"]:
-            item = notes.get(data[0]["key"])
+        if key == data[1]["name"]:
+            item = notes.get(key)
             if item["description"] == data[2]["description"]:
                 pass
             else:
-                notes.update(data[0]["key"], {"description": data[2]["description"]})
+                notes.update(key, {"description": data[2]["description"]})
 
-            file_name = filename(data[0]["key"])
+            file_name = filename(key)
             create_file(f"{file_name}.txt", r"./notes", data[3]["content"])
 
             return jsonify({"res": "success"})
@@ -110,8 +112,8 @@ def edit_note():
             file_name = filename(data[1]["name"])
             create_file(f"{file_name}.txt", r"./notes", data[3]["content"])
 
-            item = notes.get(data[0]["key"])
-            notes.delete(data[0]["key"])
+            item = notes.get(key)
+            notes.delete(key)
             drive.delete([item["file"]])
             
             return jsonify({"res": "renamed"})
