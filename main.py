@@ -7,7 +7,7 @@ from werkzeug.exceptions import default_exceptions, HTTPException, InternalServe
 from werkzeug.security import check_password_hash, generate_password_hash
 from dotenv import load_dotenv
 from deta_tools import detaBase
-from urllib.parse import unquote
+import html
 
 from helpers import *
 
@@ -94,7 +94,7 @@ def edit_note():
 
     if request.method == "POST":
         data = request.get_json()
-        key = unquote(data[0]["key"])
+        key = html.unescape(data[0]["key"])
 
         if key == data[1]["name"]:
             item = notes.get(key)
