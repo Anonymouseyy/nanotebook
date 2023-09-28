@@ -45,7 +45,16 @@ drive = detaDrive(API_KEY, "mydrive")
 def index():
     """Home Page"""
 
-    return render_template("index.html", notes=notes.query()["items"])
+    ns = notes.query()["items"]
+
+    for n in ns:
+        k = fr'{n["key"]}'
+        if "'" in k or '"' in k:
+            n["escapedkey"] = "".join(["\\" + x if x == "'" or x == '"' else x for x in k])
+        else:
+            n["escapedkey"] = k
+
+    return render_template("index.html", notes=ns)
 
 
 @app.route("/create/note", methods=["GET", "POST"])

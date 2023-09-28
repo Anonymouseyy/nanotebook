@@ -26,7 +26,7 @@
         {% for note in notes %}
         <li>
             <div class="p">
-                <button class="icon-btn del" onclick="document.getElementById('del{{ note.key }}').style.display='block'"><i class="fa-sharp fa-solid fa-trash del-ico"></i></button>
+                <button class="icon-btn del" onclick="document.getElementById('del {{ note.escapedkey }}').style.display='block'"><i class="fa-sharp fa-solid fa-trash del-ico"></i></button>
                 <a href="/edit/note?note={{ note.key }}" methods="get" class="nav-link">
                     <h1 class="notetitle">{{ note.key }}</h1>
                     <p class="notedesc">{{ note.description }}</p>
@@ -37,16 +37,16 @@
     </ol>
 
     {% for note in notes %}
-    <div id="del{{ note.key }}" class="modal">
-        <span onclick="document.getElementById('del{{ note.key }}').style.display='none'" class="close" title="Close Modal">&times;</span>
+    <div id="del {{ note.key|forceescape }}" class="modal">
+        <span onclick="document.getElementById('del {{ note.escapedkey }}').style.display='none'" class="close" title="Close Modal">&times;</span>
         <form class="modal-content" action="/delete/note" method="post">
             <div class="container">
                 <h1 style="color: black;">Delete</h1>
-                <p style="color: black;">Are you sure you want to {{ note.key }}?</p>
+                <p style="color: black;">Are you sure you want to delete {{ note.key }}?</p>
 
                 <input type="hidden" name="note" value="{{ note.key }}" />
                 <div class="clearfix">
-                    <button type="button" onclick="document.getElementById('del{{ note.key }}').style.display='none'" class="cancelbtn">Cancel</button>
+                    <button type="button" onclick="document.getElementById('del {{ note.key|forceescape }}').style.display='none'" class="cancelbtn">Cancel</button>
                     <button type="submit" class="deletebtn">Delete</button>
                 </div>
             </div>
