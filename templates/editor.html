@@ -7,72 +7,22 @@
 {% block main %}
     <h1>Edit: {{ note.key }}</h1>
     <hr class="topline">
-    <div class="container">
-    <div class="options">
-        <!-- Text Format -->
-        <button id="bold" class="option-button format textbutton" data-bs-toggle="tooltip" title="Bold">
-        <i class="fa-solid fa-bold"></i>
+    <div id="toolbar">
+        <select class="ql-size">
+            <option value="small"></option>
+            <option selected></option>
+            <option value="large"></option>
+            <option value="huge"></option>
+        </select>
+        <button class="ql-bold"></button>
+        <button class="ql-script" value="sub"></button>
+        <button class="ql-script" value="super"></button>
+        <button id="save-small" class="btn btn-primary" style="font-size: 1rem; margin-left: 10px; text-align: left;">
+            Save <i id="success-small" class="fa-solid fa-check"></i><div id="spinner-small" style="width: 1.2rem; height: 1.2rem;" class="spinner-border text-light"></div>
         </button>
-        <button id="italic" class="option-button format textbutton" data-bs-toggle="tooltip" title="Italicize">
-        <i class="fa-solid fa-italic"></i>
-        </button>
-        <button id="underline" class="option-button format textbutton" data-bs-toggle="tooltip" title="Underline">
-        <i class="fa-solid fa-underline"></i>
-        </button>
-        <button id="strikethrough" class="option-button format textbutton" data-bs-toggle="tooltip" title="Strikethrough">
-        <i class="fa-solid fa-strikethrough"></i>
-        </button>
-        <button id="superscript" class="option-button script textbutton" data-bs-toggle="tooltip" title="Superscript">
-        <i class="fa-solid fa-superscript"></i>
-        </button>
-        <button id="subscript" class="option-button script textbutton" data-bs-toggle="tooltip" title="Subscript">
-        <i class="fa-solid fa-subscript"></i>
-        </button>
-        <!-- Undo/Redo -->
-        <button id="undo" class="option-button textbutton" data-bs-toggle="tooltip" title="Undo">
-        <i class="fa-solid fa-rotate-left"></i>
-        </button>
-        <button id="redo" class="option-button textbutton" data-bs-toggle="tooltip" title="Redo">
-        <i class="fa-solid fa-rotate-right"></i>
-        </button>
-        <!-- Alignment -->
-        <button id="justifyLeft" class="option-button align textbutton" data-bs-toggle="tooltip" title="Left Align">
-        <i class="fa-solid fa-align-left"></i>
-        </button>
-        <button id="justifyCenter" class="option-button align textbutton" data-bs-toggle="tooltip" title="Center">
-        <i class="fa-solid fa-align-center"></i>
-        </button>
-        <button id="justifyRight" class="option-button align textbutton" data-bs-toggle="tooltip" title="Right Align">
-        <i class="fa-solid fa-align-right"></i>
-        </button>
-        <button id="justifyFull" class="option-button align textbutton" data-bs-toggle="tooltip" title="Justify Full">
-        <i class="fa-solid fa-align-justify"></i>
-        </button>
-        <button id="indent" class="option-button spacing textbutton" data-bs-toggle="tooltip" title="Indent">
-        <i class="fa-solid fa-indent"></i>
-        </button>
-        <button id="outdent" class="option-button spacing textbutton" data-bs-toggle="tooltip" title="Unindent">
-        <i class="fa-solid fa-outdent"></i>
-        </button>
-        <!-- Font -->
-        <select id="fontName" class="adv-option-button"></select>
-        <select id="fontSize" class="adv-option-button"></select>
-        <!-- Color -->
-        <div class="input-wrapper">
-            <input type="color" id="foreColor" class="adv-option-button" />
-            <label for="foreColor">Font Color</label>
-        </div>
-        <div class="input-wrapper">
-            <input type="color" id="backColor" class="adv-option-button" />
-            <label for="backColor">Highlight Color</label>
-        </div>
-        <div style="display: -webkit-inline-box;">
-            <button id="save-small" class="btn btn-primary" style="font-size: 1rem; margin-left: 10px; text-align: left;"><i id="success-small" class="fa-solid fa-check"></i>
-                <div id="spinner-small" style="width: 1.2rem; height: 1.2rem;" class="spinner-border text-light"></div> Save</button>
-        </div>
     </div>
-    <div id="text-input" contenteditable="true">{{ content }}</div>
-    </div>
+
+    <div id="editor"></div>
     <div class="row">
         <div class="column" style="margin-left: auto; margin-right: 0;">
             <h2>Name</h2>

@@ -8,73 +8,6 @@ body {
     background-color: #2f3136;
 }
 
-.container {
-    border: 1px solid #dddddd;
-    padding: 0px;
-    padding-top: 20px;
-    border-radius: 3px;
-    box-shadow: 0 25px 50px rgba(7, 20, 35, 0.2);
-}
-
-.options {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-}
-
-.textbutton {
-    height: 28px;
-    width: 28px;
-    display: grid;
-    place-items: center;
-    border-radius: 3px;
-    border: none;
-    background-color: #ffffff;
-    outline: none;
-    color: #020929;
-}
-
-select {
-    padding: 7px;
-    border: 1px solid #020929;
-    border-radius: 3px;
-}
-
-.options label,
-.options select {
-    font-family: "Poppins", sans-serif;
-}
-
-.input-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-input[type="color"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
-    width: 40px;
-    height: 28px;
-    border: none;
-    cursor: pointer;
-}
-
-input[type="color"]::-webkit-color-swatch {
-    border-radius: 15px;
-    box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px #020929;
-}
-
-input[type="color"]::-moz-color-swatch {
-    border-radius: 15px;
-    box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px #020929;
-}
-
 #text-input {
     margin-top: 10px;
     border: 1px solid #dddddd;
@@ -85,10 +18,6 @@ input[type="color"]::-moz-color-swatch {
     border-radius: 3px;
 }
 
-.active {
-    background-color: #e0e9ff;
-}
-
 .text-input {
     display: block;
     border: 1px solid #dddddd;
@@ -97,4 +26,22 @@ input[type="color"]::-moz-color-swatch {
     overflow-x: hidden;
     overflow-y: auto;
     border-radius: 10px;
+}
+
+.ql-toolbar .ql-stroke {
+    fill: none;
+    stroke: #fff;
+}
+
+.ql-toolbar .ql-fill {
+    fill: #fff;
+    stroke: none;
+}
+
+.ql-toolbar .ql-picker {
+    color: #fff;
+}
+
+.ql-placeholder {
+    color: #fff;
 }
