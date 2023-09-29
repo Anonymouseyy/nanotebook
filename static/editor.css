@@ -45,3 +45,7 @@ body {
 .ql-placeholder {
     color: #fff;
 }
+
+.ql-snow .ql-picker-options {
+    background-color: #454545;
+}

@@ -8,21 +8,28 @@
     <h1>Edit: {{ note.key }}</h1>
     <hr class="topline">
     <div id="toolbar">
-        <select class="ql-size">
-            <option value="small"></option>
-            <option selected></option>
-            <option value="large"></option>
-            <option value="huge"></option>
-        </select>
-        <button class="ql-bold"></button>
-        <button class="ql-script" value="sub"></button>
-        <button class="ql-script" value="super"></button>
-        <button id="save-small" class="btn btn-primary" style="font-size: 1rem; margin-left: 10px; text-align: left; width: auto;">
-            Save <i id="success-small" class="fa-solid fa-check"></i><div id="spinner-small" style="width: 1.2rem; height: 1.2rem;" class="spinner-border text-light"></div>
-        </button>
+        <span class="ql-formats">
+            <select class="ql-font"></select>
+            <select class="ql-size"></select>
+        </span>
+        <span class="ql-formats">
+            <button class="ql-bold"></button>
+            <button class="ql-italic"></button>
+            <button class="ql-underline"></button>
+            <button class="ql-strike"></button>
+            <button class="ql-link"></button>
+            <button class="ql-script" value="sub"></button>
+            <button class="ql-script" value="super"></button>
+        </span>
+        <span class="ql-formats">
+            <button id="save-small" class="btn btn-primary" style="width: auto;">
+                Save <i id="success-small" class="fa-solid fa-check"></i><div id="spinner-small" style="width: 1.2rem; height: 1.2rem;" class="spinner-border text-light"></div>
+            </button>
+        </span>
     </div>
 
-    <div id="editor"></div>
+    <div id="editor" style="height: 40vh;"></div>
+
     <div class="row">
         <div class="column" style="margin-left: auto; margin-right: 0;">
             <h2>Name</h2>
