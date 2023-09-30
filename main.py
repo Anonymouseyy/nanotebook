@@ -95,11 +95,7 @@ def edit_note():
         item = notes.get(note)
         content = get_file(item["file"]).decode()
 
-        text = markupsafe.Markup(content)
-        text = text.replace('<form>', '&lt;form&gt;').replace('</form>', '&lt;/form&gt;')
-        text = text.replace('<script>', '&lt;script&gt;').replace('</script>', '&lt;/script&gt;')
-
-        return render_template("editor.html", note=item, content=text)
+        return render_template("editor.html", note=item, content=content)
 
     if request.method == "POST":
         data = request.get_json()
@@ -107,19 +103,17 @@ def edit_note():
 
         if key == data[1]["name"]:
             item = notes.get(key)
-            if item["description"] == data[2]["description"]:
-                pass
-            else:
+            if item["description"] != data[2]["description"]:
                 notes.update(key, {"description": data[2]["description"]})
 
             file_name = filename(key)
-            create_file(f"{file_name}.txt", r"./notes", data[3]["content"])
+            create_file(f"{file_name}.json", r"./notes", f"{data[3]['content']}")
 
             return jsonify({"res": "success"})
         else:
             create_note(data[1]["name"], data[2]["description"])
             file_name = filename(data[1]["name"])
-            create_file(f"{file_name}.txt", r"./notes", data[3]["content"])
+            create_file(f"{file_name}.json", r"./notes", f"{data[3]['content']}")
 
             item = notes.get(key)
             notes.delete(key)

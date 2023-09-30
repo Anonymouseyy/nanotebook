@@ -88,9 +88,17 @@ def create_note(name, description):
     file_name = filename(name)
 
     try:
-        if not create_file(f"{file_name}.txt", r"./notes", "Note"):
+        def_data = """
+        {
+            "ops": [
+                {       
+                    "insert": "Compose something epicc"
+                }
+            ]
+        }"""
+        if not create_file(f"{file_name}.json", r"./notes", def_data):
             return 0
-        notes.put(data={"description": description, "file": f"./notes/{file_name}.txt"}, keys=name)
+        notes.put(data={"description": description, "file": f"./notes/{file_name}.json"}, keys=name)
         return 1
     except Exception as e:
         return 0
@@ -114,5 +122,5 @@ def get_file(name, return_type="str"):
             for chunk in res.iter_chunks(4096):
                 f.write(chunk)
             res.close()
-        return f"tempfile.{os.path.splitext(file)[-1]}"
+        return f"tempfile.{os.path.splitext(f)[-1]}"
 
