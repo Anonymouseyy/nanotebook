@@ -24,7 +24,7 @@ At the top, go to the `Consoles` tab and open a new `bash` console.
 
 Run this command to get all the files from Nanotebook into your PythonAnywhere files: `git clone https://github.com/Anonymouseyy/nanotebook.git`
 
-In the console, create a virtual environemnt named `nanotebook` using the following command: `mkvirtualenv nanotebook`.
+In the console, create a virtual environment named `nanotebook` using the following command: `mkvirtualenv nanotebook`.
 
 Switch to your `nanotebook` directory using `cd nanotebook`
 
@@ -46,7 +46,7 @@ Go to your PythonAnywhere `Files`.
 
 Enter the `nanotebook` directory at the left.
 
-Open the file name `.env`
+Open the file named `.env`
 
 Paste your encrypted password after the `=` sign after the `password` parameter.
 
@@ -62,7 +62,7 @@ Go back to PythonAnywhere and go to the `Files`  tab by hitting `Files` at the t
 
 Enter the `nanotebook` directory at the left.
 
-Open the file name `.env`
+Open the file named `.env`
 
 Paste your Deta token after the `=` sign after the `API_KEY` parameter.
 
