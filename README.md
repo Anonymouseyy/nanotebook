@@ -34,7 +34,7 @@ Install dependencies using `pip install -r requirements.txt`
 
 This is when you will create the password you will use to log into your instance of Nanotebook. You can also follow the below instructions to reset your password if you forget it.
 
-Go to the `Consoles` tab and go into a `bash` console. Make sure you are in your Nanotebook directory.
+Go to the `Consoles` tab and go into a `bash` console. Make sure you are in your `nanotebook` directory.
 
 Run `python generate_password.py`
 
@@ -94,4 +94,4 @@ project_folder = os.path.expanduser('~/nanotebook')
 load_dotenv(os.path.join(project_folder, '.env'))
 ```
 
-Finally, go back to the `Web` tab, reload your site, and you should be able visit and use your own instance of `Nanotebook`!
+Finally, go back to the `Web` tab, reload your site, and you should be able visit and use your own instance of Nanotebook!
